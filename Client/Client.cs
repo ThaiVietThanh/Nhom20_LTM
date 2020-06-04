@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
@@ -24,7 +25,7 @@ namespace Client
             Ketnoi();
             CheckForIllegalCrossThreadCalls = false;
             SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\Lab\LTM\Nhom20_LTM\LTM_DangNhap.mdf;Integrated Security=True;";
+            conn.ConnectionString = ConfigurationManager.ConnectionStrings["LTM_DangNhap"].ToString();
             conn.Open();
         }
 
