@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -24,9 +23,6 @@ namespace Client
             InitializeComponent();
             Ketnoi();
             CheckForIllegalCrossThreadCalls = false;
-            SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = ConfigurationManager.ConnectionStrings["LTM_DangNhap"].ToString();
-            conn.Open();
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -48,7 +44,7 @@ namespace Client
             }
             catch
             {
-                MessageBox.Show("Loi", "Loi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Không thể kết nối tới server", "Kết nối", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             Thread listen = new Thread(Nhan);
@@ -112,6 +108,7 @@ namespace Client
         private void Client_FormClosed(object sender, FormClosedEventArgs e)
         {
             Dong();
+            Application.Exit();
         }
     }
 }

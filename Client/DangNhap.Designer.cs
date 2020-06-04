@@ -71,14 +71,15 @@
             this.txtUser.Location = new System.Drawing.Point(123, 51);
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(198, 22);
-            this.txtUser.TabIndex = 2;
+            this.txtUser.TabIndex = 0;
             // 
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(123, 87);
             this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(198, 22);
-            this.txtPassword.TabIndex = 2;
+            this.txtPassword.TabIndex = 1;
             // 
             // btnDangNhap
             // 
@@ -86,12 +87,14 @@
             this.btnDangNhap.Location = new System.Drawing.Point(65, 131);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(200, 36);
-            this.btnDangNhap.TabIndex = 3;
+            this.btnDangNhap.TabIndex = 2;
             this.btnDangNhap.Text = "Đăng nhập";
             this.btnDangNhap.UseVisualStyleBackColor = true;
+            this.btnDangNhap.Click += new System.EventHandler(this.btnDangNhap_Click);
             // 
             // DangNhap
             // 
+            this.AcceptButton = this.btnDangNhap;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(333, 179);
