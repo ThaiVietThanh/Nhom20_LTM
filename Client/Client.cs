@@ -21,6 +21,7 @@ namespace Client
         public Client()
         {
             InitializeComponent();
+            menuStripuser.Text = "Đã đăng nhập (" + DangNhap.TenDangNhap + ")";
             Ketnoi();
             CheckForIllegalCrossThreadCalls = false;
         }
@@ -106,6 +107,21 @@ namespace Client
         }
 
         private void Client_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Dong();
+            Application.Exit();
+        }
+
+        private void menuScript1dangxuat_Click(object sender, EventArgs e)
+        {
+            Dong();
+            this.Hide();
+            DangNhap logout = new DangNhap();
+            logout.Show();
+            
+        }
+
+        private void thoatToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Dong();
             Application.Exit();

@@ -20,6 +20,7 @@ namespace Client
             InitializeComponent();           
         }
 
+        public static string TenDangNhap = "";
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
             SqlConnection conn = new SqlConnection();
@@ -33,6 +34,7 @@ namespace Client
             dr.Read();
             if (dr.HasRows)
             {
+                TenDangNhap = txtUser.Text;
                 this.Hide();
                 Client formClient = new Client();
                 formClient.Show();
