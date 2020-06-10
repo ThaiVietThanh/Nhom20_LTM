@@ -24,7 +24,7 @@ namespace Client
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
             SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = ConfigurationManager.ConnectionStrings["LTM_DangNhap"].ToString();
+            conn.ConnectionString = ConfigurationManager.ConnectionStrings["userinfo"].ToString();
             SqlCommand cmd = new SqlCommand("DangNhap", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@TenDN", txtUser.Text);
