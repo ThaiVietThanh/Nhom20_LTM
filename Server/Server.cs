@@ -99,9 +99,9 @@ namespace Server
             catch
             {
                 clientlist.Remove(client);
+                lwClient.Items.RemoveAt(disconnect(client));
                 client.Close();
-            }
-
+            } 
         }
 
         void AddMessage(string s)
@@ -128,6 +128,23 @@ namespace Server
             MemoryStream stream = new MemoryStream(data);
             BinaryFormatter formatter = new BinaryFormatter();
             return formatter.Deserialize(stream);
+        }
+        // ngat ket noi
+        public int disconnect(Socket socket)
+        {
+            int i = 0;
+            foreach(Socket item in clientlist)
+            {
+                if(item.RemoteEndPoint.ToString().Equals(socket.RemoteEndPoint.ToString()))
+                {
+                    return i;
+                }
+                else
+                {
+                    i=i+1;
+                }
+            }
+            return i;
         }
     }
 }
