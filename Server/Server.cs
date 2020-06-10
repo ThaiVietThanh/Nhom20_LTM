@@ -32,7 +32,7 @@ namespace Server
             {
                 Gui(item);
             }
-            AddMessage(txtMessage.Text);
+            AddMessage("Server: " + txtMessage.Text);
             txtMessage.Clear();
         }
 
@@ -55,7 +55,7 @@ namespace Server
                         server.Listen(100);
                         Socket client = server.Accept();
                         clientlist.Add(client);
-                        AddClient(client.RemoteEndPoint.ToString());
+                        //AddClient(client.RemoteEndPoint.ToString());
                         Thread receive = new Thread(Nhan);
                         receive.IsBackground = true;
                         receive.Start(client);
@@ -79,7 +79,7 @@ namespace Server
         void Gui(Socket client)
         {
             if (txtMessage.Text != string.Empty)
-                client.Send(Serialize(txtMessage.Text));
+                client.Send(Serialize("Server: " + txtMessage.Text));
         }
         // nhan tin
         void Nhan(object obj)
@@ -91,9 +91,16 @@ namespace Server
                 {
                     byte[] data = new byte[1024 * 5000];
                     client.Receive(data);
-
                     string message = (string)Deserialize(data);
-                    AddMessage(message);
+                    if (message.Contains("@"))
+                    {
+                        string name = message.Trim('@');
+                        AddClient(name);
+                    }
+                    else
+                    {
+                        AddMessage(message);
+                    }
                 }
             }
             catch

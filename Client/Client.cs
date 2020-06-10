@@ -18,6 +18,8 @@ namespace Client
 {
     public partial class Client : Form
     {
+        IPEndPoint IP;
+        Socket client;
         public Client()
         {
             InitializeComponent();
@@ -29,11 +31,10 @@ namespace Client
         private void btnSend_Click(object sender, EventArgs e)
         {
             Gui();
-            AddMessage(txtMessage.Text);
+            AddMessage(DangNhap.TenDangNhap + ": " + txtMessage.Text);
         }
 
-        IPEndPoint IP;
-        Socket client;
+
         // ket noi
         void Ketnoi()
         {
@@ -42,6 +43,7 @@ namespace Client
             try
             {
                 client.Connect(IP);
+                client.Send(Serialize("@" + DangNhap.TenDangNhap));
             }
             catch
             {
@@ -61,7 +63,7 @@ namespace Client
         void Gui()
         {
             if (txtMessage.Text != string.Empty)
-                client.Send(Serialize(txtMessage.Text));
+                client.Send(Serialize(DangNhap.TenDangNhap + ": " + txtMessage.Text));
         }
         // nhan tin
         void Nhan()
