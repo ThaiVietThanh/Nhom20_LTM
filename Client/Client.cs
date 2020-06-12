@@ -39,7 +39,7 @@ namespace Client
         void Ketnoi()
         {
             IP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9999);
-            client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+            client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             try
             {
                 client.Connect(IP);

@@ -44,7 +44,7 @@ namespace Server
         {
             clientlist = new List<Socket>();
             IP = new IPEndPoint(IPAddress.Any, 9999);
-            server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+            server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             server.Bind(IP);
             Thread listen = new Thread(() =>
             {
@@ -64,7 +64,7 @@ namespace Server
                 catch
                 {
                     IP = new IPEndPoint(IPAddress.Any, 9999);
-                    server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
+                    server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 }
             });
             listen.IsBackground = true;
