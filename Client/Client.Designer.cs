@@ -31,6 +31,7 @@
             this.btnSend = new MaterialSkin.Controls.MaterialRaisedButton();
             this.txtMessage = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.lwMessageBox = new System.Windows.Forms.ListView();
+            this.clientChat = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // btnSend
@@ -66,15 +67,23 @@
             // 
             this.lwMessageBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.lwMessageBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lwMessageBox.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.clientChat});
             this.lwMessageBox.Font = new System.Drawing.Font("Arial", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lwMessageBox.ForeColor = System.Drawing.SystemColors.Control;
+            this.lwMessageBox.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lwMessageBox.HideSelection = false;
             this.lwMessageBox.Location = new System.Drawing.Point(12, 80);
             this.lwMessageBox.Name = "lwMessageBox";
             this.lwMessageBox.Size = new System.Drawing.Size(604, 281);
             this.lwMessageBox.TabIndex = 16;
             this.lwMessageBox.UseCompatibleStateImageBehavior = false;
-            this.lwMessageBox.View = System.Windows.Forms.View.List;
+            this.lwMessageBox.View = System.Windows.Forms.View.Details;
+            // 
+            // clientChat
+            // 
+            this.clientChat.Text = "";
+            this.clientChat.Width = 580;
             // 
             // Client
             // 
@@ -86,6 +95,7 @@
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.lwMessageBox);
             this.Name = "Client";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ứng dụng Chat";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Client_FormClosed);
             this.ResumeLayout(false);
@@ -97,5 +107,6 @@
         private MaterialSkin.Controls.MaterialRaisedButton btnSend;
         private MaterialSkin.Controls.MaterialSingleLineTextField txtMessage;
         private System.Windows.Forms.ListView lwMessageBox;
+        private System.Windows.Forms.ColumnHeader clientChat;
     }
 }

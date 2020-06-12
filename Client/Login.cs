@@ -22,12 +22,13 @@ namespace Login
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue700, Primary.Blue800, Primary.Blue500, Accent.LightBlue100, TextShade.WHITE);
         }
         public static string TenDangNhap = "";
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
             SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = ConfigurationManager.ConnectionStrings["LTM_DangNhap_Old"].ToString();
+            conn.ConnectionString = ConfigurationManager.ConnectionStrings["LTM_DangNhap"].ToString();
             SqlCommand cmd = new SqlCommand("DangNhap", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@TenDN", txtUser.Text);
@@ -38,7 +39,7 @@ namespace Login
             }
             catch
             {
-                conn.ConnectionString = ConfigurationManager.ConnectionStrings["LTM_DangNhap"].ToString();
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["LTM_DangNhap_Old"].ToString();
                 conn.Open();
             }
             SqlDataReader dr = cmd.ExecuteReader();

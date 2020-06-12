@@ -28,6 +28,7 @@ namespace Client
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue700, Primary.Blue800, Primary.Blue500, Accent.LightBlue100, TextShade.WHITE);
             Ketnoi();
             this.Text = "Ứng dụng chat (" + Login.Login.TenDangNhap + ")";
             CheckForIllegalCrossThreadCalls = false;
@@ -86,6 +87,7 @@ namespace Client
         void AddMessage(string s)
         {
             lwMessageBox.Items.Add(new ListViewItem() { Text = s });
+            lwMessageBox.Items[lwMessageBox.Items.Count - 1].EnsureVisible();
             txtMessage.Clear();
         }
 

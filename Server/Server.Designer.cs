@@ -34,35 +34,46 @@
             this.btn_Send = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            this.serverChat = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.serverClient = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.serverClientStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lwClient
             // 
             this.lwClient.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.lwClient.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lwClient.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.serverClient});
             this.lwClient.Font = new System.Drawing.Font("Arial", 8.139131F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lwClient.ForeColor = System.Drawing.SystemColors.Control;
+            this.lwClient.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lwClient.HideSelection = false;
             this.lwClient.Location = new System.Drawing.Point(12, 98);
             this.lwClient.Name = "lwClient";
             this.lwClient.Size = new System.Drawing.Size(194, 331);
             this.lwClient.TabIndex = 13;
             this.lwClient.UseCompatibleStateImageBehavior = false;
-            this.lwClient.View = System.Windows.Forms.View.List;
+            this.lwClient.View = System.Windows.Forms.View.Details;
             // 
             // lwMessageBox
             // 
             this.lwMessageBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.lwMessageBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lwMessageBox.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.serverChat});
             this.lwMessageBox.Font = new System.Drawing.Font("Arial", 10.01739F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lwMessageBox.ForeColor = System.Drawing.SystemColors.Control;
+            this.lwMessageBox.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lwMessageBox.HideSelection = false;
             this.lwMessageBox.Location = new System.Drawing.Point(212, 98);
             this.lwMessageBox.Name = "lwMessageBox";
             this.lwMessageBox.Size = new System.Drawing.Size(525, 331);
             this.lwMessageBox.TabIndex = 10;
             this.lwMessageBox.UseCompatibleStateImageBehavior = false;
-            this.lwMessageBox.View = System.Windows.Forms.View.List;
+            this.lwMessageBox.View = System.Windows.Forms.View.Details;
             // 
             // txtMessage
             // 
@@ -118,12 +129,44 @@
             this.materialLabel2.TabIndex = 18;
             this.materialLabel2.Text = "Chat";
             // 
+            // serverChat
+            // 
+            this.serverChat.Text = "";
+            this.serverChat.Width = 500;
+            // 
+            // serverClient
+            // 
+            this.serverClient.Text = "";
+            this.serverClient.Width = 168;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(19, 19);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.serverClientStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 490);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(749, 22);
+            this.statusStrip1.SizingGrip = false;
+            this.statusStrip1.TabIndex = 19;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // serverClientStatus
+            // 
+            this.serverClientStatus.Font = new System.Drawing.Font("Arial", 8.139131F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.serverClientStatus.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.serverClientStatus.Name = "serverClientStatus";
+            this.serverClientStatus.Size = new System.Drawing.Size(211, 17);
+            this.serverClientStatus.Text = "Dang sách client đang kết nối: 0";
+            // 
             // Server
             // 
             this.AcceptButton = this.btn_Send;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(749, 489);
+            this.ClientSize = new System.Drawing.Size(749, 512);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.materialLabel2);
             this.Controls.Add(this.materialLabel1);
             this.Controls.Add(this.btn_Send);
@@ -131,8 +174,11 @@
             this.Controls.Add(this.lwClient);
             this.Controls.Add(this.lwMessageBox);
             this.Name = "Server";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ứng dụng Chat (Server)";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Server_FormClosed);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -145,5 +191,9 @@
         private MaterialSkin.Controls.MaterialRaisedButton btn_Send;
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
+        private System.Windows.Forms.ColumnHeader serverChat;
+        private System.Windows.Forms.ColumnHeader serverClient;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel serverClientStatus;
     }
 }

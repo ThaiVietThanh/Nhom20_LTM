@@ -28,6 +28,7 @@ namespace Server
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
+            materialSkinManager.ColorScheme = new ColorScheme(Primary.DeepOrange600, Primary.DeepOrange900, Primary.DeepOrange500, Accent.DeepOrange400, TextShade.WHITE);
             MoKetNoi();
             CheckForIllegalCrossThreadCalls = false;
         }
@@ -59,6 +60,7 @@ namespace Server
                         Thread receive = new Thread(Nhan);
                         receive.IsBackground = true;
                         receive.Start(client);
+                        
                     }
                 }
                 catch
@@ -93,6 +95,7 @@ namespace Server
                     {
                         string name = message.Trim('@');
                         AddClient(name);
+                        serverClientStatus.Text = "Dang sách client đang kết nối: " + clientlist.Count;
                     }
                     else
                     {
@@ -104,16 +107,20 @@ namespace Server
             {
                 clientlist.Remove(client);
                 lwClient.Items.RemoveAt(disconnect(client));
+                serverClientStatus.Text = "Dang sách client đang kết nối: " + clientlist.Count;
                 client.Close();
             }
         }
         void AddMessage(string s)
         {
             lwMessageBox.Items.Add(new ListViewItem() { Text = s });
+            lwMessageBox.Items[lwMessageBox.Items.Count - 1].EnsureVisible();
+
         }
         void AddClient(string clientinfo)
         {
             lwClient.Items.Add(new ListViewItem() { Text = clientinfo });
+            lwClient.Items[lwClient.Items.Count - 1].EnsureVisible();
         }
         byte[] Serialize(object obj)
         {
