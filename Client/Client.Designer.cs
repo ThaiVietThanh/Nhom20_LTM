@@ -41,7 +41,7 @@
             this.btnSend.Name = "btnSend";
             this.btnSend.Primary = true;
             this.btnSend.Size = new System.Drawing.Size(90, 27);
-            this.btnSend.TabIndex = 18;
+            this.btnSend.TabIndex = 1;
             this.btnSend.Text = "Gửi";
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
@@ -59,7 +59,7 @@
             this.txtMessage.SelectionLength = 0;
             this.txtMessage.SelectionStart = 0;
             this.txtMessage.Size = new System.Drawing.Size(508, 27);
-            this.txtMessage.TabIndex = 17;
+            this.txtMessage.TabIndex = 0;
             this.txtMessage.UseSystemPasswordChar = false;
             // 
             // lwMessageBox

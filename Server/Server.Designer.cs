@@ -76,7 +76,7 @@
             this.txtMessage.SelectionLength = 0;
             this.txtMessage.SelectionStart = 0;
             this.txtMessage.Size = new System.Drawing.Size(627, 27);
-            this.txtMessage.TabIndex = 16;
+            this.txtMessage.TabIndex = 0;
             this.txtMessage.UseSystemPasswordChar = false;
             // 
             // btn_Send
@@ -87,7 +87,7 @@
             this.btn_Send.Name = "btn_Send";
             this.btn_Send.Primary = true;
             this.btn_Send.Size = new System.Drawing.Size(90, 27);
-            this.btn_Send.TabIndex = 17;
+            this.btn_Send.TabIndex = 1;
             this.btn_Send.Text = "Gửi";
             this.btn_Send.UseVisualStyleBackColor = true;
             this.btn_Send.Click += new System.EventHandler(this.btnSend_Click);
