@@ -32,10 +32,25 @@ namespace Server
             MoKetNoi();
             CheckForIllegalCrossThreadCalls = false;
         }
-        private void btnSend_Click(object sender, EventArgs e)
+        private void btn_Send_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var selecteditem = lwClient.FocusedItem.Index;
+                Socket item = clientlist[selecteditem];
+                Gui(item);
+                AddMessage("Server: " + txtMessage.Text);
+                txtMessage.Clear();
+            }
+            catch
+            {
+                MessageBox.Show("Chưa chọn Client để gửi", "Gửi cho Client", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        private void btnSendAll_Click(object sender, EventArgs e)
         {
             foreach (Socket item in clientlist)
-            {
+            {   
                 Gui(item);
             }
             AddMessage("Server: " + txtMessage.Text);
@@ -44,7 +59,7 @@ namespace Server
         void MoKetNoi()
         {
             clientlist = new List<Socket>();
-            IP = new IPEndPoint(IPAddress.Any, 9999);
+            IP = new IPEndPoint(IPAddress.Parse("52.187.22.95"), 9999);
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             server.Bind(IP);
             Thread listen = new Thread(() =>
@@ -56,11 +71,10 @@ namespace Server
                         server.Listen(100);
                         Socket client = server.Accept();
                         clientlist.Add(client);
-                        //AddClient(client.RemoteEndPoint.ToString());
                         Thread receive = new Thread(Nhan);
                         receive.IsBackground = true;
                         receive.Start(client);
-                        
+
                     }
                 }
                 catch

@@ -29,15 +29,16 @@
         private void InitializeComponent()
         {
             this.lwClient = new System.Windows.Forms.ListView();
+            this.serverClient = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lwMessageBox = new System.Windows.Forms.ListView();
+            this.serverChat = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.txtMessage = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.btn_Send = new MaterialSkin.Controls.MaterialRaisedButton();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
-            this.serverChat = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.serverClient = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.serverClientStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btn_SendAll = new MaterialSkin.Controls.MaterialRaisedButton();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,6 +50,7 @@
             this.serverClient});
             this.lwClient.Font = new System.Drawing.Font("Arial", 8.139131F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lwClient.ForeColor = System.Drawing.SystemColors.Control;
+            this.lwClient.FullRowSelect = true;
             this.lwClient.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lwClient.HideSelection = false;
             this.lwClient.Location = new System.Drawing.Point(12, 98);
@@ -57,6 +59,11 @@
             this.lwClient.TabIndex = 13;
             this.lwClient.UseCompatibleStateImageBehavior = false;
             this.lwClient.View = System.Windows.Forms.View.Details;
+            // 
+            // serverClient
+            // 
+            this.serverClient.Text = "";
+            this.serverClient.Width = 168;
             // 
             // lwMessageBox
             // 
@@ -69,11 +76,17 @@
             this.lwMessageBox.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lwMessageBox.HideSelection = false;
             this.lwMessageBox.Location = new System.Drawing.Point(212, 98);
+            this.lwMessageBox.MultiSelect = false;
             this.lwMessageBox.Name = "lwMessageBox";
             this.lwMessageBox.Size = new System.Drawing.Size(525, 331);
             this.lwMessageBox.TabIndex = 10;
             this.lwMessageBox.UseCompatibleStateImageBehavior = false;
             this.lwMessageBox.View = System.Windows.Forms.View.Details;
+            // 
+            // serverChat
+            // 
+            this.serverChat.Text = "";
+            this.serverChat.Width = 500;
             // 
             // txtMessage
             // 
@@ -86,14 +99,14 @@
             this.txtMessage.SelectedText = "";
             this.txtMessage.SelectionLength = 0;
             this.txtMessage.SelectionStart = 0;
-            this.txtMessage.Size = new System.Drawing.Size(627, 27);
+            this.txtMessage.Size = new System.Drawing.Size(515, 27);
             this.txtMessage.TabIndex = 0;
             this.txtMessage.UseSystemPasswordChar = false;
             // 
             // btn_Send
             // 
             this.btn_Send.Depth = 0;
-            this.btn_Send.Location = new System.Drawing.Point(647, 446);
+            this.btn_Send.Location = new System.Drawing.Point(533, 446);
             this.btn_Send.MouseState = MaterialSkin.MouseState.HOVER;
             this.btn_Send.Name = "btn_Send";
             this.btn_Send.Primary = true;
@@ -101,7 +114,7 @@
             this.btn_Send.TabIndex = 1;
             this.btn_Send.Text = "Gửi";
             this.btn_Send.UseVisualStyleBackColor = true;
-            this.btn_Send.Click += new System.EventHandler(this.btnSend_Click);
+            this.btn_Send.Click += new System.EventHandler(this.btn_Send_Click);
             // 
             // materialLabel1
             // 
@@ -129,23 +142,13 @@
             this.materialLabel2.TabIndex = 18;
             this.materialLabel2.Text = "Chat";
             // 
-            // serverChat
-            // 
-            this.serverChat.Text = "";
-            this.serverChat.Width = 500;
-            // 
-            // serverClient
-            // 
-            this.serverClient.Text = "";
-            this.serverClient.Width = 168;
-            // 
             // statusStrip1
             // 
             this.statusStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(19, 19);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.serverClientStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 490);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 485);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(749, 22);
             this.statusStrip1.SizingGrip = false;
@@ -157,18 +160,32 @@
             this.serverClientStatus.Font = new System.Drawing.Font("Arial", 8.139131F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.serverClientStatus.ForeColor = System.Drawing.SystemColors.ControlDark;
             this.serverClientStatus.Name = "serverClientStatus";
-            this.serverClientStatus.Size = new System.Drawing.Size(211, 17);
+            this.serverClientStatus.Size = new System.Drawing.Size(211, 16);
             this.serverClientStatus.Text = "Dang sách client đang kết nối: 0";
+            // 
+            // btn_SendAll
+            // 
+            this.btn_SendAll.Depth = 0;
+            this.btn_SendAll.Location = new System.Drawing.Point(629, 446);
+            this.btn_SendAll.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btn_SendAll.Name = "btn_SendAll";
+            this.btn_SendAll.Primary = true;
+            this.btn_SendAll.Size = new System.Drawing.Size(108, 27);
+            this.btn_SendAll.TabIndex = 1;
+            this.btn_SendAll.Text = "Gửi Tất Cả";
+            this.btn_SendAll.UseVisualStyleBackColor = true;
+            this.btn_SendAll.Click += new System.EventHandler(this.btnSendAll_Click);
             // 
             // Server
             // 
             this.AcceptButton = this.btn_Send;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(749, 512);
+            this.ClientSize = new System.Drawing.Size(749, 507);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.materialLabel2);
             this.Controls.Add(this.materialLabel1);
+            this.Controls.Add(this.btn_SendAll);
             this.Controls.Add(this.btn_Send);
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.lwClient);
@@ -195,5 +212,6 @@
         private System.Windows.Forms.ColumnHeader serverClient;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel serverClientStatus;
+        private MaterialSkin.Controls.MaterialRaisedButton btn_SendAll;
     }
 }
