@@ -53,7 +53,7 @@
             this.lwClient.FullRowSelect = true;
             this.lwClient.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lwClient.HideSelection = false;
-            this.lwClient.Location = new System.Drawing.Point(12, 98);
+            this.lwClient.Location = new System.Drawing.Point(12, 118);
             this.lwClient.Name = "lwClient";
             this.lwClient.Size = new System.Drawing.Size(194, 331);
             this.lwClient.TabIndex = 13;
@@ -75,7 +75,7 @@
             this.lwMessageBox.ForeColor = System.Drawing.SystemColors.Control;
             this.lwMessageBox.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lwMessageBox.HideSelection = false;
-            this.lwMessageBox.Location = new System.Drawing.Point(212, 98);
+            this.lwMessageBox.Location = new System.Drawing.Point(212, 118);
             this.lwMessageBox.MultiSelect = false;
             this.lwMessageBox.Name = "lwMessageBox";
             this.lwMessageBox.Size = new System.Drawing.Size(525, 331);
@@ -92,7 +92,7 @@
             // 
             this.txtMessage.Depth = 0;
             this.txtMessage.Hint = "Tin nhắn";
-            this.txtMessage.Location = new System.Drawing.Point(12, 446);
+            this.txtMessage.Location = new System.Drawing.Point(12, 466);
             this.txtMessage.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.PasswordChar = '\0';
@@ -106,7 +106,7 @@
             // btn_Send
             // 
             this.btn_Send.Depth = 0;
-            this.btn_Send.Location = new System.Drawing.Point(533, 446);
+            this.btn_Send.Location = new System.Drawing.Point(533, 466);
             this.btn_Send.MouseState = MaterialSkin.MouseState.HOVER;
             this.btn_Send.Name = "btn_Send";
             this.btn_Send.Primary = true;
@@ -122,7 +122,7 @@
             this.materialLabel1.Depth = 0;
             this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel1.Location = new System.Drawing.Point(12, 72);
+            this.materialLabel1.Location = new System.Drawing.Point(12, 82);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
             this.materialLabel1.Size = new System.Drawing.Size(144, 23);
@@ -135,7 +135,7 @@
             this.materialLabel2.Depth = 0;
             this.materialLabel2.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel2.Location = new System.Drawing.Point(208, 72);
+            this.materialLabel2.Location = new System.Drawing.Point(208, 82);
             this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel2.Name = "materialLabel2";
             this.materialLabel2.Size = new System.Drawing.Size(48, 23);
@@ -148,9 +148,9 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(19, 19);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.serverClientStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 485);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 507);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(749, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(758, 22);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 19;
             this.statusStrip1.Text = "statusStrip1";
@@ -166,7 +166,7 @@
             // btn_SendAll
             // 
             this.btn_SendAll.Depth = 0;
-            this.btn_SendAll.Location = new System.Drawing.Point(629, 446);
+            this.btn_SendAll.Location = new System.Drawing.Point(629, 466);
             this.btn_SendAll.MouseState = MaterialSkin.MouseState.HOVER;
             this.btn_SendAll.Name = "btn_SendAll";
             this.btn_SendAll.Primary = true;
@@ -181,7 +181,7 @@
             this.AcceptButton = this.btn_Send;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(749, 507);
+            this.ClientSize = new System.Drawing.Size(758, 529);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.materialLabel2);
             this.Controls.Add(this.materialLabel1);
