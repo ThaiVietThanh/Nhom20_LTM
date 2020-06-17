@@ -50,7 +50,7 @@ namespace Server
         private void btnSendAll_Click(object sender, EventArgs e)
         {
             foreach (Socket item in clientlist)
-            {   
+            {
                 Gui(item);
             }
             AddMessage("Server: " + txtMessage.Text);
@@ -121,6 +121,7 @@ namespace Server
             {
                 clientlist.Remove(client);
                 lwClient.Items.RemoveAt(disconnect(client));
+                lwClient.Refresh();
                 serverClientStatus.Text = "Dang sách client đang kết nối: " + clientlist.Count;
                 client.Close();
             }
@@ -135,6 +136,7 @@ namespace Server
         {
             lwClient.Items.Add(new ListViewItem() { Text = clientinfo });
             lwClient.Items[lwClient.Items.Count - 1].EnsureVisible();
+            lwClient.SelectedItems.Clear();
         }
         byte[] Serialize(object obj)
         {
@@ -168,6 +170,33 @@ namespace Server
         private void Server_FormClosed(object sender, FormClosedEventArgs e)
         {
             Dong();
+        }
+        private void txtTimKiem_TextChanged(object sender, EventArgs e)
+        {
+            if (txtTimKiem.Text != string.Empty)
+            {
+                for (int i = lwClient.Items.Count - 1; i >= 0; i--)
+                {
+                    var item = lwClient.Items[i];
+                    if (item.Text.ToLower().Equals(txtTimKiem.Text.ToLower()))
+                    {
+                        if(lwClient.SelectedItems != null)
+                        {
+                            lwClient.SelectedItems.Clear();
+                        }
+                        item.Selected = true;
+                        item.Focused = true;
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+            else
+            {
+                lwClient.Refresh();
+            }
         }
     }
 }
