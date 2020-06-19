@@ -62,7 +62,7 @@ namespace Server
             IP = new IPEndPoint(IPAddress.Any, 9999);
             server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             server.Bind(IP);
-            Thread ++listen = new Thread(() =>
+            Thread listen = new Thread(() =>
             {
                 try
                 {
