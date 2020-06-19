@@ -39,6 +39,9 @@
             this.serverClientStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.btn_SendAll = new MaterialSkin.Controls.MaterialRaisedButton();
             this.txtTimKiem = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.rdSearchName = new MaterialSkin.Controls.MaterialRadioButton();
+            this.rdSearchIndex = new MaterialSkin.Controls.MaterialRadioButton();
+            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,7 +96,7 @@
             // 
             this.txtMessage.Depth = 0;
             this.txtMessage.Hint = "Tin nhắn";
-            this.txtMessage.Location = new System.Drawing.Point(12, 466);
+            this.txtMessage.Location = new System.Drawing.Point(12, 510);
             this.txtMessage.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.PasswordChar = '\0';
@@ -107,7 +110,7 @@
             // btn_Send
             // 
             this.btn_Send.Depth = 0;
-            this.btn_Send.Location = new System.Drawing.Point(533, 466);
+            this.btn_Send.Location = new System.Drawing.Point(533, 510);
             this.btn_Send.MouseState = MaterialSkin.MouseState.HOVER;
             this.btn_Send.Name = "btn_Send";
             this.btn_Send.Primary = true;
@@ -136,7 +139,7 @@
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(19, 19);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.serverClientStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 507);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 544);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(758, 22);
             this.statusStrip1.SizingGrip = false;
@@ -154,7 +157,7 @@
             // btn_SendAll
             // 
             this.btn_SendAll.Depth = 0;
-            this.btn_SendAll.Location = new System.Drawing.Point(629, 466);
+            this.btn_SendAll.Location = new System.Drawing.Point(629, 510);
             this.btn_SendAll.MouseState = MaterialSkin.MouseState.HOVER;
             this.btn_SendAll.Name = "btn_SendAll";
             this.btn_SendAll.Primary = true;
@@ -167,27 +170,81 @@
             // txtTimKiem
             // 
             this.txtTimKiem.Depth = 0;
-            this.txtTimKiem.Hint = "Tìm kiếm";
-            this.txtTimKiem.Location = new System.Drawing.Point(13, 81);
+            this.txtTimKiem.Hint = "Tìm kiếm theo số thứ tự";
+            this.txtTimKiem.Location = new System.Drawing.Point(12, 467);
             this.txtTimKiem.MouseState = MaterialSkin.MouseState.HOVER;
             this.txtTimKiem.Name = "txtTimKiem";
             this.txtTimKiem.PasswordChar = '\0';
             this.txtTimKiem.SelectedText = "";
             this.txtTimKiem.SelectionLength = 0;
             this.txtTimKiem.SelectionStart = 0;
-            this.txtTimKiem.Size = new System.Drawing.Size(193, 27);
-            this.txtTimKiem.TabIndex = 20;
+            this.txtTimKiem.Size = new System.Drawing.Size(555, 27);
+            this.txtTimKiem.TabIndex = 21;
             this.txtTimKiem.UseSystemPasswordChar = false;
+            this.txtTimKiem.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTimKiem_KeyPress);
             this.txtTimKiem.TextChanged += new System.EventHandler(this.txtTimKiem_TextChanged);
+            // 
+            // rdSearchName
+            // 
+            this.rdSearchName.AutoSize = true;
+            this.rdSearchName.Depth = 0;
+            this.rdSearchName.Font = new System.Drawing.Font("Roboto", 10F);
+            this.rdSearchName.Location = new System.Drawing.Point(679, 463);
+            this.rdSearchName.Margin = new System.Windows.Forms.Padding(0);
+            this.rdSearchName.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.rdSearchName.MouseState = MaterialSkin.MouseState.HOVER;
+            this.rdSearchName.Name = "rdSearchName";
+            this.rdSearchName.Ripple = true;
+            this.rdSearchName.Size = new System.Drawing.Size(58, 30);
+            this.rdSearchName.TabIndex = 22;
+            this.rdSearchName.TabStop = true;
+            this.rdSearchName.Text = "Tên";
+            this.rdSearchName.UseVisualStyleBackColor = true;
+            this.rdSearchName.CheckedChanged += new System.EventHandler(this.rdSearchName_CheckedChanged);
+            // 
+            // rdSearchIndex
+            // 
+            this.rdSearchIndex.AutoSize = true;
+            this.rdSearchIndex.Checked = true;
+            this.rdSearchIndex.Depth = 0;
+            this.rdSearchIndex.Font = new System.Drawing.Font("Roboto", 10F);
+            this.rdSearchIndex.Location = new System.Drawing.Point(570, 463);
+            this.rdSearchIndex.Margin = new System.Windows.Forms.Padding(0);
+            this.rdSearchIndex.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.rdSearchIndex.MouseState = MaterialSkin.MouseState.HOVER;
+            this.rdSearchIndex.Name = "rdSearchIndex";
+            this.rdSearchIndex.Ripple = true;
+            this.rdSearchIndex.Size = new System.Drawing.Size(98, 30);
+            this.rdSearchIndex.TabIndex = 22;
+            this.rdSearchIndex.TabStop = true;
+            this.rdSearchIndex.Text = "Số thứ tự";
+            this.rdSearchIndex.UseVisualStyleBackColor = true;
+            this.rdSearchIndex.CheckedChanged += new System.EventHandler(this.rdSearchIndex_CheckedChanged);
+            // 
+            // materialLabel1
+            // 
+            this.materialLabel1.AutoSize = true;
+            this.materialLabel1.Depth = 0;
+            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel1.Location = new System.Drawing.Point(12, 82);
+            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel1.Name = "materialLabel1";
+            this.materialLabel1.Size = new System.Drawing.Size(144, 23);
+            this.materialLabel1.TabIndex = 18;
+            this.materialLabel1.Text = "Danh sách Client";
             // 
             // Server
             // 
             this.AcceptButton = this.btn_Send;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(758, 529);
+            this.ClientSize = new System.Drawing.Size(758, 566);
+            this.Controls.Add(this.rdSearchIndex);
+            this.Controls.Add(this.rdSearchName);
             this.Controls.Add(this.txtTimKiem);
             this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.materialLabel1);
             this.Controls.Add(this.materialLabel2);
             this.Controls.Add(this.btn_SendAll);
             this.Controls.Add(this.btn_Send);
@@ -217,5 +274,8 @@
         private System.Windows.Forms.ToolStripStatusLabel serverClientStatus;
         private MaterialSkin.Controls.MaterialRaisedButton btn_SendAll;
         private MaterialSkin.Controls.MaterialSingleLineTextField txtTimKiem;
+        private MaterialSkin.Controls.MaterialRadioButton rdSearchName;
+        private MaterialSkin.Controls.MaterialRadioButton rdSearchIndex;
+        private MaterialSkin.Controls.MaterialLabel materialLabel1;
     }
 }

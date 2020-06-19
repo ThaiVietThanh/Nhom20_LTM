@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
@@ -173,30 +174,75 @@ namespace Server
         }
         private void txtTimKiem_TextChanged(object sender, EventArgs e)
         {
-            if (txtTimKiem.Text != string.Empty)
+            if (rdSearchIndex.Checked == true)
             {
-                for (int i = lwClient.Items.Count - 1; i >= 0; i--)
+                if (txtTimKiem.Text != string.Empty)
                 {
+                    int i = Int16.Parse(txtTimKiem.Text) - 1;
                     var item = lwClient.Items[i];
-                    if (item.Text.ToLower().Equals(txtTimKiem.Text.ToLower()))
+                    if (lwClient.SelectedItems != null)
                     {
-                        if(lwClient.SelectedItems != null)
-                        {
-                            lwClient.SelectedItems.Clear();
-                        }
-                        item.Selected = true;
-                        item.Focused = true;
+                        lwClient.SelectedItems.Clear();
                     }
-                    else
-                    {
+                    item.Selected = true;
+                    item.Focused = true;
+                }
 
+            }
+            else if (rdSearchName.Checked == true)
+            {
+                if (txtTimKiem.Text != string.Empty)
+                {
+                    for (int i = lwClient.Items.Count - 1; i >= 0; i--)
+                    {
+                        var item = lwClient.Items[i];
+                        if (item.Text.ToLower().Equals(txtTimKiem.Text.ToLower()))
+                        {
+                            if (lwClient.SelectedItems != null)
+                            {
+                                lwClient.SelectedItems.Clear();
+                            }
+                            item.Selected = true;
+                            item.Focused = true;
+                        }
+                        else
+                        {
+
+                        }
                     }
                 }
+                else
+                {
+                    lwClient.Refresh();
+                }
             }
-            else
+        }
+        private void txtTimKiem_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (rdSearchIndex.Checked == true)
             {
-                lwClient.Refresh();
+                if (e.KeyChar != '\b')
+                {
+                    e.Handled = !char.IsNumber(e.KeyChar);
+                }
             }
+            else if (rdSearchName.Checked == true)
+            {
+                if (e.KeyChar != '\b')
+                {
+                    e.Handled = !char.IsLetterOrDigit(e.KeyChar);
+                }
+            }
+        }
+        private void rdSearchIndex_CheckedChanged(object sender, EventArgs e)
+        {
+            txtTimKiem.Clear();
+            txtTimKiem.Hint = "Tìm kiếm theo số thứ tự";
+        }
+        private void rdSearchName_CheckedChanged(object sender, EventArgs e)
+        {
+            txtTimKiem.Clear();
+            txtTimKiem.Hint = "Tìm kiếm theo tên";
         }
     }
 }
