@@ -34,11 +34,11 @@
             this.serverChat = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.txtMessage = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.btn_Send = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.serverClientStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.btn_SendAll = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.txtTimKiem = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,6 +54,7 @@
             this.lwClient.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.lwClient.HideSelection = false;
             this.lwClient.Location = new System.Drawing.Point(12, 118);
+            this.lwClient.MultiSelect = false;
             this.lwClient.Name = "lwClient";
             this.lwClient.Size = new System.Drawing.Size(194, 331);
             this.lwClient.TabIndex = 13;
@@ -116,19 +117,6 @@
             this.btn_Send.UseVisualStyleBackColor = true;
             this.btn_Send.Click += new System.EventHandler(this.btn_Send_Click);
             // 
-            // materialLabel1
-            // 
-            this.materialLabel1.AutoSize = true;
-            this.materialLabel1.Depth = 0;
-            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
-            this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel1.Location = new System.Drawing.Point(12, 82);
-            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(144, 23);
-            this.materialLabel1.TabIndex = 18;
-            this.materialLabel1.Text = "Danh sách Client";
-            // 
             // materialLabel2
             // 
             this.materialLabel2.AutoSize = true;
@@ -176,15 +164,31 @@
             this.btn_SendAll.UseVisualStyleBackColor = true;
             this.btn_SendAll.Click += new System.EventHandler(this.btnSendAll_Click);
             // 
+            // txtTimKiem
+            // 
+            this.txtTimKiem.Depth = 0;
+            this.txtTimKiem.Hint = "Tìm kiếm";
+            this.txtTimKiem.Location = new System.Drawing.Point(13, 81);
+            this.txtTimKiem.MouseState = MaterialSkin.MouseState.HOVER;
+            this.txtTimKiem.Name = "txtTimKiem";
+            this.txtTimKiem.PasswordChar = '\0';
+            this.txtTimKiem.SelectedText = "";
+            this.txtTimKiem.SelectionLength = 0;
+            this.txtTimKiem.SelectionStart = 0;
+            this.txtTimKiem.Size = new System.Drawing.Size(193, 27);
+            this.txtTimKiem.TabIndex = 20;
+            this.txtTimKiem.UseSystemPasswordChar = false;
+            this.txtTimKiem.TextChanged += new System.EventHandler(this.txtTimKiem_TextChanged);
+            // 
             // Server
             // 
             this.AcceptButton = this.btn_Send;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(758, 529);
+            this.Controls.Add(this.txtTimKiem);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.materialLabel2);
-            this.Controls.Add(this.materialLabel1);
             this.Controls.Add(this.btn_SendAll);
             this.Controls.Add(this.btn_Send);
             this.Controls.Add(this.txtMessage);
@@ -206,12 +210,12 @@
         private System.Windows.Forms.ListView lwMessageBox;
         private MaterialSkin.Controls.MaterialSingleLineTextField txtMessage;
         private MaterialSkin.Controls.MaterialRaisedButton btn_Send;
-        private MaterialSkin.Controls.MaterialLabel materialLabel1;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private System.Windows.Forms.ColumnHeader serverChat;
         private System.Windows.Forms.ColumnHeader serverClient;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel serverClientStatus;
         private MaterialSkin.Controls.MaterialRaisedButton btn_SendAll;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtTimKiem;
     }
 }
