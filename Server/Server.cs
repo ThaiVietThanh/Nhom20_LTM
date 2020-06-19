@@ -46,6 +46,7 @@ namespace Server
             catch
             {
                 MessageBox.Show("Chưa chọn Client để gửi", "Gửi cho Client", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtTimKiem.Clear();
             }
         }
         private void btnSendAll_Click(object sender, EventArgs e)
@@ -179,13 +180,21 @@ namespace Server
                 if (txtTimKiem.Text != string.Empty)
                 {
                     int i = Int16.Parse(txtTimKiem.Text) - 1;
-                    var item = lwClient.Items[i];
-                    if (lwClient.SelectedItems != null)
+                    try
                     {
-                        lwClient.SelectedItems.Clear();
+                        var item = lwClient.Items[i];
+                        if (lwClient.SelectedItems != null)
+                        {
+                            lwClient.SelectedItems.Clear();
+                        }
+                        item.Selected = true;
+                        item.Focused = true;
                     }
-                    item.Selected = true;
-                    item.Focused = true;
+                    catch
+                    {
+                        MessageBox.Show("Số thứ tự tìm kiếm không được phép lớn hơn số Client đang kết nối", "Tìm kiếm theo số thứ tự", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
                 }
 
             }
@@ -205,15 +214,24 @@ namespace Server
                             item.Selected = true;
                             item.Focused = true;
                         }
+                        else if (item.Text.ToLower().Contains(txtTimKiem.Text))
+                        {
+                            item.BackColor = Color.White;
+                            item.ForeColor = Color.Black;
+                        }
                         else
                         {
-
+                            item.BackColor = Color.FromArgb(255, 51, 51, 51);
+                            item.ForeColor = Color.White;
+                            if (lwClient.SelectedItems != null)
+                            {
+                                lwClient.SelectedItems.Clear();
+                            }
                         }
                     }
                 }
                 else
                 {
-                    lwClient.Refresh();
                 }
             }
         }
