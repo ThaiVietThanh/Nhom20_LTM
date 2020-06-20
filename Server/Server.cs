@@ -1,6 +1,7 @@
 ﻿using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -76,7 +77,6 @@ namespace Server
                         Thread receive = new Thread(Nhan);
                         receive.IsBackground = true;
                         receive.Start(client);
-
                     }
                 }
                 catch
@@ -97,6 +97,27 @@ namespace Server
             if (txtMessage.Text != string.Empty)
                 client.Send(Serialize("Server: " + txtMessage.Text));
         }
+        void GuiDSClient()
+        {
+            foreach(Socket item in clientlist)
+            {
+                DSClient(item);
+            }
+        }
+        void DSClient(Socket client)
+        {
+            List<string> ds = new List<string>();
+            if(ds != null)
+            {
+                ds = new List<string>();
+            }
+            foreach (ListViewItem item in lwClient.Items)
+            {
+                ds.Add(item.Text);
+            }
+            string clist = String.Join("|", ds.ToArray());
+            client.Send(Serialize("clist:" + clist));
+        }
         void Nhan(object obj)
         {
             Socket client = obj as Socket;
@@ -105,6 +126,7 @@ namespace Server
                 while (true)
                 {
                     byte[] data = new byte[1024 * 5000];
+                    GuiDSClient();
                     client.Receive(data);
                     string message = (string)Deserialize(data);
                     if (message.Contains("@"))
@@ -115,6 +137,7 @@ namespace Server
                     }
                     else
                     {
+                        
                         AddMessage(message);
                     }
                 }
@@ -123,6 +146,7 @@ namespace Server
             {
                 clientlist.Remove(client);
                 lwClient.Items.RemoveAt(disconnect(client));
+                GuiDSClient();
                 lwClient.Refresh();
                 serverClientStatus.Text = "Dang sách client đang kết nối: " + clientlist.Count;
                 client.Close();

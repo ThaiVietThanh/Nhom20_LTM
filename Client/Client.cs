@@ -30,7 +30,7 @@ namespace Client
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue700, Primary.Blue800, Primary.Blue500, Accent.LightBlue100, TextShade.WHITE);
             Ketnoi();
-            this.Text = "Ứng dụng chat (" + Login.Login.TenDangNhap + ")";
+            this.Text = "Ứng dụng chat (" + Login.Login.TenDangNhap + ")";           
             CheckForIllegalCrossThreadCalls = false;
         }
         private void btnSend_Click(object sender, EventArgs e)
@@ -75,7 +75,24 @@ namespace Client
                     client.Receive(data);
 
                     string message = (string)Deserialize(data);
-                    AddMessage(message);
+                    if (message.StartsWith("clist:"))
+                    {
+                        if(lwClient.Items.Count != 0)
+                        {
+                            lwClient.Items.Clear();
+                        }
+                        message = message.Replace("clist:", string.Empty);
+                        string[] clientlist = message.Split('|');
+                        foreach(string client in clientlist)
+                        {
+                            AddClient(client);
+                        }
+                    }
+                    else
+                    {
+                        AddMessage(message);
+                        
+                    }
                 }
             }
             catch
@@ -90,7 +107,11 @@ namespace Client
             lwMessageBox.Items[lwMessageBox.Items.Count - 1].EnsureVisible();
             txtMessage.Clear();
         }
-
+        void AddClient(string s)
+        {
+            lwClient.Items.Add(new ListViewItem() { Text = s });
+            lwClient.Items[lwClient.Items.Count - 1].EnsureVisible();
+        }
         byte[] Serialize(object obj)
         {
             MemoryStream stream = new MemoryStream();

@@ -32,6 +32,8 @@
             this.txtMessage = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.lwMessageBox = new System.Windows.Forms.ListView();
             this.clientChat = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.lwClient = new System.Windows.Forms.ListView();
+            this.serverClient = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // btnSend
@@ -85,12 +87,37 @@
             this.clientChat.Text = "";
             this.clientChat.Width = 580;
             // 
+            // lwClient
+            // 
+            this.lwClient.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.lwClient.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lwClient.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.serverClient});
+            this.lwClient.Font = new System.Drawing.Font("Arial", 8.139131F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lwClient.ForeColor = System.Drawing.SystemColors.Control;
+            this.lwClient.FullRowSelect = true;
+            this.lwClient.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+            this.lwClient.HideSelection = false;
+            this.lwClient.Location = new System.Drawing.Point(622, 77);
+            this.lwClient.MultiSelect = false;
+            this.lwClient.Name = "lwClient";
+            this.lwClient.Size = new System.Drawing.Size(177, 331);
+            this.lwClient.TabIndex = 17;
+            this.lwClient.UseCompatibleStateImageBehavior = false;
+            this.lwClient.View = System.Windows.Forms.View.Details;
+            // 
+            // serverClient
+            // 
+            this.serverClient.Text = "";
+            this.serverClient.Width = 168;
+            // 
             // Client
             // 
             this.AcceptButton = this.btnSend;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(632, 426);
+            this.ClientSize = new System.Drawing.Size(811, 426);
+            this.Controls.Add(this.lwClient);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.txtMessage);
             this.Controls.Add(this.lwMessageBox);
@@ -108,5 +135,7 @@
         private MaterialSkin.Controls.MaterialSingleLineTextField txtMessage;
         private System.Windows.Forms.ListView lwMessageBox;
         private System.Windows.Forms.ColumnHeader clientChat;
+        private System.Windows.Forms.ListView lwClient;
+        private System.Windows.Forms.ColumnHeader serverClient;
     }
 }
