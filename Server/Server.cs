@@ -36,7 +36,15 @@ namespace Server
         }
         private void btn_Send_Click(object sender, EventArgs e)
         {
-            try
+            if (txtMessage.Text == string.Empty)
+            {
+                MessageBox.Show("Chưa nhập tin nhắn", "Gửi cho Client", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (lwClient.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Chưa chọn Client để gửi", "Gửi cho Client", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
             {
                 var selecteditem = lwClient.FocusedItem.Index;
                 Socket item = clientlist[selecteditem];
@@ -44,20 +52,22 @@ namespace Server
                 AddMessage("Server: " + txtMessage.Text);
                 txtMessage.Clear();
             }
-            catch
-            {
-                MessageBox.Show("Chưa chọn Client để gửi", "Gửi cho Client", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                txtTimKiem.Clear();
-            }
         }
         private void btnSendAll_Click(object sender, EventArgs e)
         {
-            foreach (Socket item in clientlist)
+            if (txtMessage.Text == string.Empty)
             {
-                Gui(item);
+                MessageBox.Show("Chưa nhập tin nhắn", "Gửi cho tất cả Client", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            AddMessage("Server: " + txtMessage.Text);
-            txtMessage.Clear();
+            else
+            {
+                foreach (Socket item in clientlist)
+                {
+                    Gui(item);
+                }
+                AddMessage("Server: " + txtMessage.Text);
+                txtMessage.Clear();
+            }
         }
         void MoKetNoi()
         {
@@ -99,15 +109,39 @@ namespace Server
         }
         void GuiDSClient()
         {
-            foreach(Socket item in clientlist)
+            foreach (Socket item in clientlist)
             {
                 DSClient(item);
             }
         }
+        void ChuyenTin(Socket client, string message)
+        {
+            client.Send(Serialize(message));
+        }
+        void ChuyenTinNhan(string message, string user)
+        {
+            for (int i = lwClient.Items.Count - 1; i >= 0; i--)
+            {
+                var item = lwClient.Items[i];
+                if (item.Text.Equals(user))
+                {
+                    if (lwClient.SelectedItems != null)
+                    {
+                        lwClient.SelectedItems.Clear();
+                    }
+                    item.Selected = true;
+                    item.Focused = true;
+                }
+            }
+            var selecteditem = lwClient.FocusedItem.Index;
+            Socket sendto = clientlist[selecteditem];
+            ChuyenTin(sendto, message);
+            lwClient.SelectedItems.Clear();
+        }
         void DSClient(Socket client)
         {
             List<string> ds = new List<string>();
-            if(ds != null)
+            if (ds != null)
             {
                 ds = new List<string>();
             }
@@ -135,9 +169,13 @@ namespace Server
                         AddClient(name);
                         serverClientStatus.Text = "Dang sách client đang kết nối: " + clientlist.Count;
                     }
+                    else if (message.Contains("=>"))
+                    {
+                        string[] info = message.Split(new string[] { " => " }, StringSplitOptions.None);
+                        ChuyenTinNhan(info[0], info[1]);
+                    }
                     else
                     {
-                        
                         AddMessage(message);
                     }
                 }
