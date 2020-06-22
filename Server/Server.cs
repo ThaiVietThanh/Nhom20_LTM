@@ -246,8 +246,8 @@ namespace Server
             }
             catch
             {
-                clientlist.Remove(client);
                 lwClient.Items.RemoveAt(disconnect(client));
+                clientlist.Remove(client);
                 GuiDSClient();
                 lwClient.Refresh();
                 serverClientStatus.Text = "Dang sách client đang kết nối: " + clientlist.Count;
