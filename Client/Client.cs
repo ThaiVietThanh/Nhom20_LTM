@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace Client
 {
@@ -23,6 +24,7 @@ namespace Client
         IPEndPoint IP;
         Socket client;
         string sendto = string.Empty;
+        Login.Login frmLogin;
         public Client()
         {
             InitializeComponent();
@@ -31,7 +33,6 @@ namespace Client
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue700, Primary.Blue800, Primary.Blue500, Accent.LightBlue100, TextShade.WHITE);
             Ketnoi();
-            this.Text = "Ứng dụng chat (" + Login.Login.TenDangNhap + ")";
             CheckForIllegalCrossThreadCalls = false;
         }
         private void btnSend_Click(object sender, EventArgs e)
@@ -73,6 +74,9 @@ namespace Client
             Thread listen = new Thread(Nhan);
             listen.IsBackground = true;
             listen.Start();
+            System.Threading.Thread.Sleep(100);
+            GuiTK();
+            this.Text = "Ứng dụng chat (" + Login.Login.TenDangNhap + ")";
         }
         void Dong()
         {
@@ -88,7 +92,11 @@ namespace Client
             client.Send(Serialize(Login.Login.TenDangNhap + ": " + txtMessage.Text + " => " + sendto));
             AddMessage(Login.Login.TenDangNhap + ": " + txtMessage.Text);
         }
-
+        void GuiTK()
+        {
+            string acc = "account:" + Login.Login.TenDangNhap + "|" + Login.Login.Password;
+            client.Send(Serialize(acc));
+        }
         void Nhan()
         {
             try
@@ -112,6 +120,22 @@ namespace Client
                             {
                                 AddClient(client);
                             }
+                        }
+                    }
+                    else if (message.Contains(Login.Login.TenDangNhap))
+                    {
+                        if (message.Equals(Login.Login.TenDangNhap + " đăng nhập thành công"))
+                        {
+                            MessageBox.Show("Đăng nhập thành công", "Đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            txtMessage.Enabled = true;
+                            btnSend.Enabled = true;
+                            btnSendClient.Enabled = true;
+                        }
+                        else if (message.Equals("Thông tin đăng nhập của " + Login.Login.TenDangNhap + " không đúng"))
+                        {
+                            MessageBox.Show("Thông tin đăng nhập không đúng", "Đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Dong();
+                            Application.Exit();
                         }
                     }
                     else

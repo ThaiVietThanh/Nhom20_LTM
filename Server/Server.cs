@@ -4,13 +4,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading;
@@ -24,6 +27,7 @@ namespace Server
         IPEndPoint IP;
         Socket server;
         List<Socket> clientlist;
+        SqlConnection conn = new SqlConnection();
         public Server()
         {
             InitializeComponent();
@@ -104,8 +108,7 @@ namespace Server
         }
         void Gui(Socket client)
         {
-            if (txtMessage.Text != string.Empty)
-                client.Send(Serialize("Server: " + txtMessage.Text));
+            client.Send(Serialize("Server: " + txtMessage.Text));
         }
         void GuiDSClient()
         {
@@ -117,6 +120,46 @@ namespace Server
         void ChuyenTin(Socket client, string message)
         {
             client.Send(Serialize(message));
+        }
+        void Login(string user)
+        {
+            for (int i = lwClient.Items.Count - 1; i >= 0; i--)
+            {
+                var item = lwClient.Items[i];
+                if (item.Text.Equals(user))
+                {
+                    if (lwClient.SelectedItems != null)
+                    {
+                        lwClient.SelectedItems.Clear();
+                    }
+                    item.Selected = true;
+                    item.Focused = true;
+                }
+            }
+            var selecteditem = lwClient.FocusedItem.Index;
+            Socket login = clientlist[selecteditem];
+            login.Send(Serialize(user + " đăng nhập thành công"));
+            lwClient.SelectedItems.Clear();
+        }
+        void LoginError(string user)
+        {
+            for (int i = lwClient.Items.Count - 1; i >= 0; i--)
+            {
+                var item = lwClient.Items[i];
+                if (item.Text.Equals(user))
+                {
+                    if (lwClient.SelectedItems != null)
+                    {
+                        lwClient.SelectedItems.Clear();
+                    }
+                    item.Selected = true;
+                    item.Focused = true;
+                }
+            }
+            var selecteditem = lwClient.FocusedItem.Index;
+            Socket login = clientlist[selecteditem];
+            login.Send(Serialize("Thông tin đăng nhập của " + user + " không đúng"));
+            lwClient.SelectedItems.Clear();
         }
         void ChuyenTinNhan(string message, string user)
         {
@@ -173,6 +216,12 @@ namespace Server
                     {
                         string[] info = message.Split(new string[] { " => " }, StringSplitOptions.None);
                         ChuyenTinNhan(info[0], info[1]);
+                    }
+                    else if (message.Contains("account:"))
+                    {
+                        message = message.Replace("account:", string.Empty);
+                        string[] acc = message.Split('|');
+                        XacThuc(acc[0], acc[1]);
                     }
                     else
                     {
@@ -323,6 +372,31 @@ namespace Server
         {
             txtTimKiem.Clear();
             txtTimKiem.Hint = "Tìm kiếm theo tên";
+        }
+        public void XacThuc(string Username, string Password)
+        {
+            if (Username != string.Empty && Password != string.Empty)
+            {
+                conn.ConnectionString = ConfigurationManager.ConnectionStrings["LTM_DangNhap"].ToString();
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("DangNhap", conn)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                cmd.Parameters.AddWithValue("@TenDN", Username);
+                cmd.Parameters.AddWithValue("@MatKhau", Password);
+                SqlDataReader dr = cmd.ExecuteReader();
+                dr.Read();
+                if(dr.HasRows)
+                {
+                    Login(Username);
+                }
+                else
+                {
+                    LoginError(Username);
+                }
+                conn.Close();
+            }
         }
     }
 }

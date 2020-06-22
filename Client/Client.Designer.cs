@@ -40,6 +40,7 @@
             // btnSend
             // 
             this.btnSend.Depth = 0;
+            this.btnSend.Enabled = false;
             this.btnSend.Location = new System.Drawing.Point(631, 378);
             this.btnSend.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSend.Name = "btnSend";
@@ -53,6 +54,7 @@
             // txtMessage
             // 
             this.txtMessage.Depth = 0;
+            this.txtMessage.Enabled = false;
             this.txtMessage.Font = new System.Drawing.Font("Arial Narrow", 8.139131F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMessage.Hint = "Tin nhắn";
             this.txtMessage.Location = new System.Drawing.Point(12, 378);
@@ -116,6 +118,7 @@
             // btnSendClient
             // 
             this.btnSendClient.Depth = 0;
+            this.btnSendClient.Enabled = false;
             this.btnSendClient.Location = new System.Drawing.Point(531, 378);
             this.btnSendClient.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnSendClient.Name = "btnSendClient";
@@ -139,7 +142,7 @@
             this.Controls.Add(this.lwMessageBox);
             this.Name = "Client";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Ứng dụng Chat";
+            this.Text = "Ứng dụng chat (Chưa đăng nhập)";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Client_FormClosed);
             this.ResumeLayout(false);
 
