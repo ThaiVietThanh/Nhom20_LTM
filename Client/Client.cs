@@ -108,18 +108,25 @@ namespace Client
                     string message = (string)Deserialize(data);
                     if (message.StartsWith("clist:"))
                     {
-                        if (lwClient.Items.Count != 0)
+                        try
                         {
-                            lwClient.Items.Clear();
-                        }
-                        message = message.Replace("clist:", string.Empty);
-                        string[] clientlist = message.Split('|');
-                        foreach (string client in clientlist)
-                        {
-                            if (client != Login.Login.TenDangNhap)
+                            if (lwClient.Items.Count != 0)
                             {
-                                AddClient(client);
+                                lwClient.Items.Clear();
                             }
+                            string messages = message.Replace("clist:", string.Empty);
+                            string[] clientlist = messages.Split('|');
+                            foreach (string client in clientlist)
+                            {
+                                if (client != Login.Login.TenDangNhap)
+                                {
+                                    AddClient(client);
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            AddMessage(message);
                         }
                     }
                     else if (message.Contains(Login.Login.TenDangNhap))
@@ -136,6 +143,10 @@ namespace Client
                             MessageBox.Show("Thông tin đăng nhập không đúng", "Đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             Dong();
                             Application.Exit();
+                        }
+                        else
+                        {
+                            AddMessage(message);
                         }
                     }
                     else

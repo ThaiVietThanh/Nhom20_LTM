@@ -214,14 +214,29 @@ namespace Server
                     }
                     else if (message.Contains("=>"))
                     {
-                        string[] info = message.Split(new string[] { " => " }, StringSplitOptions.None);
-                        ChuyenTinNhan(info[0], info[1]);
+                        try
+                        {
+                            string[] info = message.Split(new string[] { " => " }, StringSplitOptions.None);
+                            ChuyenTinNhan(info[0], info[1]);
+                        }
+                        catch
+                        {
+                            AddMessage(message);
+                        }
+
                     }
                     else if (message.Contains("account:"))
                     {
-                        message = message.Replace("account:", string.Empty);
-                        string[] acc = message.Split('|');
-                        XacThuc(acc[0], acc[1]);
+                        try
+                        {
+                            string messages = message.Replace("account:", string.Empty);
+                            string[] acc = messages.Split('|');
+                            XacThuc(acc[0], acc[1]);
+                        }
+                        catch
+                        {
+                            AddMessage(message);
+                        }
                     }
                     else
                     {
@@ -387,7 +402,7 @@ namespace Server
                 cmd.Parameters.AddWithValue("@MatKhau", Password);
                 SqlDataReader dr = cmd.ExecuteReader();
                 dr.Read();
-                if(dr.HasRows)
+                if (dr.HasRows)
                 {
                     Login(Username);
                 }
