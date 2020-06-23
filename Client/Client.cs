@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace Client
 {
@@ -22,6 +23,8 @@ namespace Client
     {
         IPEndPoint IP;
         Socket client;
+        string sendto = string.Empty;
+        Login.Login frmLogin;
         public Client()
         {
             InitializeComponent();
@@ -30,13 +33,29 @@ namespace Client
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.Blue700, Primary.Blue800, Primary.Blue500, Accent.LightBlue100, TextShade.WHITE);
             Ketnoi();
-            this.Text = "Ứng dụng chat (" + Login.Login.TenDangNhap + ")";
             CheckForIllegalCrossThreadCalls = false;
         }
         private void btnSend_Click(object sender, EventArgs e)
         {
-            Gui();
-            AddMessage(Login.Login.TenDangNhap + ": " + txtMessage.Text);
+            if (txtMessage.Text == string.Empty)
+            {
+                MessageBox.Show("Chưa nhập tin nhắn", "Gửi cho Server", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+                Gui();
+        }
+        private void btnSendClient_Click(object sender, EventArgs e)
+        {
+            if (txtMessage.Text == string.Empty)
+            {
+                MessageBox.Show("Chưa nhập tin nhắn", "Gửi cho Client", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (sendto == string.Empty)
+            {
+                MessageBox.Show("Chưa chọn Client để gửi", "Gửi cho Client", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+                GuiClient();
         }
         void Ketnoi()
         {
@@ -55,6 +74,9 @@ namespace Client
             Thread listen = new Thread(Nhan);
             listen.IsBackground = true;
             listen.Start();
+            System.Threading.Thread.Sleep(100);
+            GuiTK();
+            this.Text = "Ứng dụng chat (" + Login.Login.TenDangNhap + ")";
         }
         void Dong()
         {
@@ -62,8 +84,18 @@ namespace Client
         }
         void Gui()
         {
-            if (txtMessage.Text != string.Empty)
-                client.Send(Serialize(Login.Login.TenDangNhap + ": " + txtMessage.Text));
+            client.Send(Serialize(Login.Login.TenDangNhap + ": " + txtMessage.Text));
+            AddMessage(Login.Login.TenDangNhap + ": " + txtMessage.Text);
+        }
+        void GuiClient()
+        {
+            client.Send(Serialize(Login.Login.TenDangNhap + ": " + txtMessage.Text + " => " + sendto));
+            AddMessage(Login.Login.TenDangNhap + ": " + txtMessage.Text);
+        }
+        void GuiTK()
+        {
+            string acc = "account:" + Login.Login.TenDangNhap + "|" + Login.Login.Password;
+            client.Send(Serialize(acc));
         }
         void Nhan()
         {
@@ -73,9 +105,54 @@ namespace Client
                 {
                     byte[] data = new byte[1024 * 5000];
                     client.Receive(data);
-
                     string message = (string)Deserialize(data);
-                    AddMessage(message);
+                    if (message.StartsWith("clist:"))
+                    {
+                        try
+                        {
+                            if (lwClient.Items.Count != 0)
+                            {
+                                lwClient.Items.Clear();
+                            }
+                            string messages = message.Replace("clist:", string.Empty);
+                            string[] clientlist = messages.Split('|');
+                            foreach (string client in clientlist)
+                            {
+                                if (client != Login.Login.TenDangNhap)
+                                {
+                                    AddClient(client);
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            AddMessage(message);
+                        }
+                    }
+                    else if (message.Contains(Login.Login.TenDangNhap))
+                    {
+                        if (message.Equals(Login.Login.TenDangNhap + " đăng nhập thành công"))
+                        {
+                            MessageBox.Show("Đăng nhập thành công", "Đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            txtMessage.Enabled = true;
+                            btnSend.Enabled = true;
+                            btnSendClient.Enabled = true;
+                        }
+                        else if (message.Equals("Thông tin đăng nhập của " + Login.Login.TenDangNhap + " không đúng"))
+                        {
+                            MessageBox.Show("Thông tin đăng nhập không đúng", "Đăng nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            Dong();
+                            Application.Exit();
+                        }
+                        else
+                        {
+                            AddMessage(message);
+                        }
+                    }
+                    else
+                    {
+                        AddMessage(message);
+                    }
                 }
             }
             catch
@@ -90,7 +167,11 @@ namespace Client
             lwMessageBox.Items[lwMessageBox.Items.Count - 1].EnsureVisible();
             txtMessage.Clear();
         }
-
+        void AddClient(string s)
+        {
+            lwClient.Items.Add(new ListViewItem() { Text = s });
+            lwClient.Items[lwClient.Items.Count - 1].EnsureVisible();
+        }
         byte[] Serialize(object obj)
         {
             MemoryStream stream = new MemoryStream();
@@ -104,11 +185,18 @@ namespace Client
             BinaryFormatter formatter = new BinaryFormatter();
             return formatter.Deserialize(stream);
         }
-
         private void Client_FormClosed(object sender, FormClosedEventArgs e)
         {
             Dong();
             Application.Exit();
+        }
+        private void lwClient_Click(object sender, EventArgs e)
+        {
+            if (lwClient.SelectedItems.Count != 0)
+            {
+                sendto = lwClient.SelectedItems[0].Text;
+                btnSendClient.Text = sendto;
+            }
         }
     }
 }
