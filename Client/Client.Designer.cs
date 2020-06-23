@@ -46,7 +46,7 @@
             this.btnSend.Name = "btnSend";
             this.btnSend.Primary = true;
             this.btnSend.Size = new System.Drawing.Size(94, 27);
-            this.btnSend.TabIndex = 1;
+            this.btnSend.TabIndex = 2;
             this.btnSend.Text = "Server";
             this.btnSend.UseVisualStyleBackColor = true;
             this.btnSend.Click += new System.EventHandler(this.btnSend_Click);

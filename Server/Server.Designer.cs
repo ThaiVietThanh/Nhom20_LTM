@@ -162,7 +162,7 @@
             this.btn_SendAll.Name = "btn_SendAll";
             this.btn_SendAll.Primary = true;
             this.btn_SendAll.Size = new System.Drawing.Size(108, 27);
-            this.btn_SendAll.TabIndex = 1;
+            this.btn_SendAll.TabIndex = 2;
             this.btn_SendAll.Text = "Gửi Tất Cả";
             this.btn_SendAll.UseVisualStyleBackColor = true;
             this.btn_SendAll.Click += new System.EventHandler(this.btnSendAll_Click);
@@ -179,7 +179,7 @@
             this.txtTimKiem.SelectionLength = 0;
             this.txtTimKiem.SelectionStart = 0;
             this.txtTimKiem.Size = new System.Drawing.Size(555, 27);
-            this.txtTimKiem.TabIndex = 21;
+            this.txtTimKiem.TabIndex = 3;
             this.txtTimKiem.UseSystemPasswordChar = false;
             this.txtTimKiem.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTimKiem_KeyPress);
             this.txtTimKiem.TextChanged += new System.EventHandler(this.txtTimKiem_TextChanged);
@@ -196,7 +196,7 @@
             this.rdSearchName.Name = "rdSearchName";
             this.rdSearchName.Ripple = true;
             this.rdSearchName.Size = new System.Drawing.Size(58, 30);
-            this.rdSearchName.TabIndex = 22;
+            this.rdSearchName.TabIndex = 5;
             this.rdSearchName.TabStop = true;
             this.rdSearchName.Text = "Tên";
             this.rdSearchName.UseVisualStyleBackColor = true;
@@ -215,7 +215,7 @@
             this.rdSearchIndex.Name = "rdSearchIndex";
             this.rdSearchIndex.Ripple = true;
             this.rdSearchIndex.Size = new System.Drawing.Size(98, 30);
-            this.rdSearchIndex.TabIndex = 22;
+            this.rdSearchIndex.TabIndex = 4;
             this.rdSearchIndex.TabStop = true;
             this.rdSearchIndex.Text = "Số thứ tự";
             this.rdSearchIndex.UseVisualStyleBackColor = true;
